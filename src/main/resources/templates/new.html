@@ -6,18 +6,27 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/admin/}" th:object="${user}">
-    <label for="name">Введите имя</label>
-    <input type="text" placeholder="Имя" th:field="*{name}" id="name">
+    <label for="firstName">First name</label>
+    <input type="text" placeholder="First name" th:field="*{firstName}" id="firstName">
     <br/>
-    <label for="surName">Введите фамилию</label>
-    <input type="text" placeholder="Фамилия" th:field="*{surName}" id="surName">
+    <label for="lastName">Last name</label>
+    <input type="text" placeholder="Last name" th:field="*{lastName}" id="lastName">
     <br/>
-    <label for="email">Введите email</label>
-    <input type="text" placeholder="email" th:field="*{email}" id="email">
+    <label for="age">Age</label>
+    <input type="number" placeholder="Age" th:field="*{age}" id="age">
     <br/>
-    <label for="password">Введите пароль</label>
-    <input type="password" placeholder="Пароль" th:field="*{password}" id="password">
+    <label for="email">Email</label>
+    <input type="text" placeholder="Email" th:field="*{email}" id="email">
     <br/>
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" th:field="*{password}" id="password">
+    <br/>
+<!--    <label for="role">Role</label>-->
+<!--    <select name="role" id="role" th:field="*{role}">-->
+<!--        <option value="ROLE_USER">Пользователь</option>-->
+<!--        <option value="ROLE_ADMIN">Администратор</option>-->
+<!--    </select>-->
+<!--    <br/>-->
     <input type="submit" value="Создать"/>
 </form>
 
