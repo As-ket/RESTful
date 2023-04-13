@@ -8,58 +8,111 @@
     <title>Все пользователи</title>
 </head>
 <body>
-<hr>
-<h4>All users</h4>
-<hr>
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
+<h1>Admin panel</h1>
+<br/>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#adminTab">Users table</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#newUser">New User</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="adminTab">
+        <div class="card">
+            <div class="card-header">
+                <h4>All users</h4>
+            </div>
+        </div>/
+    </div>/
+</div>/
+<div class="card-body">
+                <table class="table table-striped" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${allUsers}">
+                            <td><p th:text="${user.getId()}"></p></td>
+                            <td><p th:text="${user.getFirstName()}"></p></td>
+                            <td><p th:text="${user.getLastName()}"></p></td>
+                            <td><p th:text="${user.getAge()}"></p></td>
+                            <td><p th:text="${user.getEmail()}"></p></td>
+                            <td><p th:text="${user.getRole()}"></p></td>
+                            <td><a th:href="@{/admin/{id}/edit(id=${user.getId()})}">
+                                <input type="submit" value="Edit"/>
+                            </a></td>
+                            <td>
+                                <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+                                    <input type="submit" value="Delete"/>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
 
-    <tbody>
-    <tr th:each="user : ${allUsers}">
-        <td><p th:text="${user.getId()}">VALUE</p></td>
-        <td><p th:text="${user.getFirstName()}">VALUE</p></td>
-        <td><p th:text="${user.getLastName()}">VALUE</p></td>
-        <td><p th:text="${user.getAge()}">VALUE</p></td>
-        <td><p th:text="${user.getEmail()}">VALUE</p></td>
-        <td><p th:text="${user.getRole()}">VALUE</p></td>
-        <td><a th:href="@{/admin/{id}/edit(id=${user.getId()})}">
-            <input type="submit" value="Edit"/>
-        </a></td>
-        <td><form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
-            <input type="submit" value="Delete"/>
-        </form></td>
-    </tr>
-    </tbody>
+                    </table>
+            </div>
 
-</table>
+                    <div class="tab-pane fade" id="newUser" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card">
+                            <h5 class="card-header">
+                                Add new user
+                            </h5>
+                            <form th:method="POST" th:action="@{/admin/}" th:object="${user}">
+                                <label for="firstName">First name</label>
+                                <input type="text" placeholder="First name" th:field="*{firstName}" id="firstName">
+                                <br/>
+                                <label for="lastName">Last name</label>
+                                <input type="text" placeholder="Last name" th:field="*{lastName}" id="lastName">
+                                <br/>
+                                <label for="age">Age</label>
+                                <input type="number" placeholder="Age" th:field="*{age}" id="age">
+                                <br/>
+                                <label for="email">Email</label>
+                                <input type="email" placeholder="Email" th:field="*{email}" id="email">
+                                <br/>
+                                <label for="password">Password</label>
+                                <input type="password" placeholder="Password" th:field="*{password}" id="password">
+                                <br/>
+                                <label for="role">Role</label>
+                                <select name="role" id="role" th:field="*{role}"
+                                        th:size="${allRoles.size()}" multiple>
+                                    <option th:each="role : ${allRoles}"
+                                            th:text="${role.toString()}"
+                                            th:value="${role.getId()}">Value
+                                    </option>
+                                </select>
 
-<a href="admin/new">
-    <input type="submit" value="Создать нового пользователя"/>
-</a>
+                                <br/>
+                                <input type="submit" value="Создать"/>
+                            </form>
+                        </div>
+                    </div>
 
-<a href="/logout">
-    <input type="submit" value="Выйти"/>
-</a>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+                    <a href="/logout">
+                        <input type="submit" value="Выйти"/>
+                    </a>
+                    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                            crossorigin="anonymous"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                            crossorigin="anonymous"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                                       crossorigin="anonymous"></script>
+
 </body>
+
 </html>
 
