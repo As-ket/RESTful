@@ -9,14 +9,14 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-<!--    <div class="container-fluid mr-auto">-->
-<!--                <span class="navbar-brand">-->
-<!--                    <strong th:text="${#authentication.getName()}"></strong>-->
-<!--                    <span>-->
-<!--                        <a th:text="' with roles: ' + ${#strings.setJoin(#authentication.getAuthorities(), ' ')}"></a>-->
-<!--                    </span>-->
-<!--                </span>-->
-<!--    </div>-->
+    <div class="container-fluid mr-auto">
+                <span class="navbar-brand">
+                    <strong th:text="${#authentication.getPrincipal().getEmail()}"></strong>
+                    <span>
+                        <a th:text="' with roles: ' + ${#strings.setJoin(#authentication.getAuthorities(), ' ')}"></a>
+                    </span>
+                </span>
+    </div>
     <span class="nav-item ms-auto">
         <form th:action="@{/logout}" method="POST">
 <!--            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
@@ -24,7 +24,6 @@
         </form>
     </span>
 </nav>
-sidebar+tabs
 <div class="container-fluid p-0">
     <div class="row vh-100">
         <div class="col-2 pr-0 pt-3">
@@ -37,7 +36,7 @@ sidebar+tabs
         </div>
         <div class="col-10 m-0 bg-light ">
             <div class="tab-content container-fluid">
-                <div class="tab-pane fade show active" id="admin-panel" role="rabpanel"
+                <div class="tab-pane fade show active" id="admin-panel" role="userpanel"
                      aria-labelledby="admin-panel-tab">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-1 ">
                         <h1>Admin panel</h1>
@@ -77,8 +76,7 @@ sidebar+tabs
                                             <td><p th:text="${user.getLastName()}"></p></td>
                                             <td><p th:text="${user.getAge()}"></p></td>
                                             <td><p th:text="${user.getEmail()}"></p></td>
-                                            <td><p th:text="${user.getRole()}"></p></td>
-                                            <td>
+                                            <td th:utext="${#strings.setJoin(user.role, ' ')}"></td>                                            <td>
                                                 <button type="button" class="btn btn-info" data-toggle="modal"
                                                         th:href="${'#edit' + user.id}">Edit
                                                 </button>
@@ -134,7 +132,7 @@ sidebar+tabs
                                                                         </div>
                                                                         <div class="form-group text-center">
                                                                             <label for="e-surname"><strong>Email</strong></label>
-                                                                            <input type="text" name="email"
+                                                                            <input type="email" name="email"
                                                                                    class="form-control"
                                                                                    id="e-surname"
                                                                                    th:value="${user.email}">
@@ -146,11 +144,23 @@ sidebar+tabs
                                                                                    id="edit-password"
                                                                                    th:value="${user.password}">
                                                                         </div>
+<!--                                                                        <div class="form-group text-center">-->
+<!--                                                                            <label for="edit-roleList"><strong>Role</strong></label>-->
+<!--                                                                            <select class="custom-select" id="edit-roleList"-->
+<!--                                                                                    name="newUser-roles"-->
+<!--                                                                                    multiple="multiple" size="2"-->
+<!--                                                                                    th:field="*{newUser.role}">-->
+<!--                                                                                <option th:each="s : ${allRoles}"-->
+<!--                                                                                        th:text="${s}" th:value="${s.getId}"-->
+<!--                                                                                        th:selected="${user.role.contains(s)}">-->
+<!--                                                                                </option>-->
+<!--                                                                            </select>-->
+<!--                                                                        </div>-->
                                                                         <div class="form-group text-center">
                                                                             <label for="edit-roleList"><strong>Role</strong></label>
                                                                             <select class="custom-select"
                                                                                     id="edit-roleList" multiple size="2"
-                                                                                    th:name="roles" th:id="role">
+                                                                                    th:name="role" th:id="role">
                                                                                 <option th:each="s:${allRoles}"
                                                                                         th:value="${s.id}"
                                                                                         th:text="${s}"

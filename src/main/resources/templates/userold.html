@@ -7,8 +7,8 @@
 <h1>User, welcome spring boot security page!</h1>
 
 <div th:each ="user : ${user}">
-    <tr><td><div th:text="${user.getId}"></div></td><td><div th:text="${user.getName}"></div></td>
-        <td><div th:text="${user.getSurName}"></div></td><td><div th:text="${user.getEmail}"></div></td>
+    <tr><td><div th:text="${user.getId}"></div></td><td><div th:text="${user.getFirstName()}"></div></td>
+        <td><div th:text="${user.getLastName()}"></div></td><td><div th:text="${user.getEmail}"></div></td>
 </div>
 <form th:action="@{/logout}">
     <input type="submit" value="Выйти"/>
