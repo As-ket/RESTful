@@ -19,13 +19,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, @Lazy PasswordEncoder passwordEncoder) {
-        this.roleRepository = roleRepository;
+    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
