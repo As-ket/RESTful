@@ -13,7 +13,7 @@
                 <span class="navbar-brand">
                     <strong th:text="${#authentication.getPrincipal().getEmail()}"></strong>
                     <span>
-                        <a th:text="' with roles: ' + ${#strings.setJoin(#authentication.getAuthorities())}"></a>
+                        <a th:text="' with roles: ' + ${#strings.setJoin(#authentication.getAuthorities(), ' ')}"></a>
                     </span>
                 </span>
     </div>
@@ -108,14 +108,16 @@
                                                                                    th:value="${user.id}">
                                                                         </div>
                                                                         <div class="form-group text-center">
-                                                                            <label for="e-name"><strong>First Name</strong></label>
+                                                                            <label for="e-name"><strong>First
+                                                                                Name</strong></label>
                                                                             <input type="text" name="firstName"
                                                                                    class="form-control"
                                                                                    id="e-name"
                                                                                    th:value="${user.firstName}">
                                                                         </div>
                                                                         <div class="form-group text-center">
-                                                                            <label for="e-LastName"><strong>Last Name</strong></label>
+                                                                            <label for="e-LastName"><strong>Last
+                                                                                Name</strong></label>
                                                                             <input type="text" name="lastName"
                                                                                    class="form-control"
                                                                                    id="e-LastName"
