@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,7 @@ public class AdminController {
         model.addAttribute("allUsers", userService.getAllUsers());
         model.addAttribute("allRoles", roleRepository.findAll());
         model.addAttribute("newUser", new User());
-        return "all-users";
+        return "adminPage";
     }
 
     @PostMapping()
