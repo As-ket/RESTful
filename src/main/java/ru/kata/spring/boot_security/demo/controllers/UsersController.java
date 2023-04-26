@@ -9,24 +9,24 @@ import java.security.Principal;
 
 @RestController
 public class UsersController {
-
-    private final UserService userService;
-
-    @Autowired
-    public UsersController(UserService userService) {
-        this.userService = userService;
-    }
-
-
-    @GetMapping("/user")
-    public String userPage(Model model, Principal principal) {
-        model.addAttribute("user", userService.findByName(principal.getName()));
-        return "user";
-    }
-
-    @GetMapping("/index")
-    public String show() {
-        return "index";
-    }
+//
+//    private final UserService userService;
+//
+//    @Autowired
+//    public UsersController(UserService userService) {
+//        this.userService = userService;
+//    }
+//
+//
+//    @GetMapping("/user")
+//    public String userPage(Model model, Principal principal) {
+//        model.addAttribute("user", userService.findByName(principal.getName()));
+//        return "user";
+//    }
+//
+//    @GetMapping("/index")
+//    public String show() {
+//        return "index";
+//    }
 
 }
