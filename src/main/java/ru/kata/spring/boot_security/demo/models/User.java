@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
@@ -39,7 +40,6 @@ public class User implements UserDetails {
         this.age = age;
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     public String getEmail() {
@@ -103,8 +103,8 @@ public class User implements UserDetails {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", FirstName='" + firstName + '\'' +
-                ", LastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -113,12 +113,12 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return roles;
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return this.email;
     }
 
     @Override
@@ -144,4 +144,15 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() { return getClass().hashCode();}
 }

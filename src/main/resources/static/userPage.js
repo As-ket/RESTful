@@ -5,9 +5,9 @@ async function thisUser() {
     fetch("http://localhost:8080/api/authUser")
         .then(res => res.json())
         .then(data => {
-            // Добавляем информацию в шапку
+            //info for nav-bar
             $('#header-username').append(data.username);
-            let roles = data.roles.map(role => role.role.replaceAll('ROLE_', '')).join(" ");
+            let roles = data.roles.map(role => role.name.replaceAll('ROLE_', '')).join(" ");
             $('#header-roles').append(roles);
 
             let user = `$(
