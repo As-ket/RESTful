@@ -9,7 +9,7 @@ async function allUsers() {
         .then(res => res.json())
         .then(data => {
             data.forEach(user => {
-                let roles = user.roles.map(role => role.role.replaceAll('ROLE_', '')).join(" ");
+                let roles = user.roles.map(role => role.name.replaceAll('ROLE_', '')).join(" ");
                 let tableRow = `$(
             <tr>
                 <td>${user.id}</td>

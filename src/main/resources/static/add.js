@@ -8,7 +8,7 @@ async function newUser() {
         .then(roles => {
             roles.forEach(role => {
                 let el = document.createElement('option');
-                el.text = role.role.substring(5);
+                el.text = role.name.substring(5);
                 el.value = role.id
                 $('#new-userRole')[0].appendChild(el);
             })
